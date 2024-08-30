@@ -6,19 +6,19 @@ export default {
       fondoColor: '#000000',
       textColor: '',
       mostrarText: '',
-      tamanoBorde: '',
+      tamanoBorde: '5',
       contenidoTextual: '',
       tipografia: [
         { label: 'Cursiva', value: 'italicText' },
         { label: 'Negrita', value: 'boldText' }
       ],
       tipografiaSelected: '',
-      opaco: '',
+      opaco: { value: 'opaco' },
       tamanoLetraSelected: '',
       tamanoLetra: [
-        { label: 'Pequeño', value: 'pequeno' },
-        { label: 'Mediano', value: 'mediano' },
-        { label: 'Grande', value: 'grande' }
+        { label: 'Pequeño', value: '16px' },
+        { label: 'Mediano', value: '20px' },
+        { label: 'Grande', value: '26px' }
       ]
     }
   }
@@ -39,7 +39,7 @@ export default {
       </div>
 
       <label for="border">Borde</label>
-      <input type="range" min="5" max="40" value="5" id="border" v-model="tamanoBorde" />
+      <input type="range" min="5" max="40" id="border" v-model="tamanoBorde" />
 
       <label for="contenido">Contenido Textual</label>
       <textarea id="contenido" v-model="contenidoTextual"></textarea>
@@ -53,7 +53,7 @@ export default {
 
       <div class="inRow">
         <label for="opacidad">Opaco</label>
-        <input type="checkbox" v-model="opaco" id="opacidad" />
+        <input type="checkbox" v-model="opaco" id="opacidad" value="opaco" />
       </div>
       <div class="inColumn">
         <label for="tamanoLetra">Tamaño de Letra</label>
@@ -75,10 +75,11 @@ export default {
       :style="{
         backgroundColor: fondoColor,
         color: textColor,
-        borderRadius: `${tamanoBorde}%`
+        borderRadius: `${tamanoBorde}%`,
+        fontSize: tamanoLetraSelected
       }"
     >
-      <p v-show="mostrarText" :class="tipografiaSelected">{{ contenidoTextual }}</p>
+      <p v-show="mostrarText" :class="{ tipografiaSelected, opaco }">{{ contenidoTextual }}</p>
     </div>
   </div>
 </template>
@@ -111,10 +112,24 @@ input {
   width: 100%;
   margin-bottom: 1rem;
 }
-
 #cuadroDeMuestra {
   height: 400px;
   width: 400px;
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.italicText {
+  font-style: italic;
+}
+.boldText {
+  font-weight: bold;
+}
+p {
+  opacity: 0.5;
+}
+.opaco {
+  opacity: 1;
 }
 </style>
